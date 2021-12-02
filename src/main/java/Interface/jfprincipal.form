@@ -40,12 +40,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmConsultaRequisitosActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmConsultaUsuario">
+            <MenuItem class="javax.swing.JMenuItem" name="jmListaUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmConsultaUsuarioActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmListaUserActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

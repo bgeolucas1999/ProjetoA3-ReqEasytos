@@ -53,7 +53,7 @@ public class jfprincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jmConsultaProjetos = new javax.swing.JMenuItem();
         jmConsultaRequisitos = new javax.swing.JMenuItem();
-        jmConsultaUsuario = new javax.swing.JMenuItem();
+        jmListaUser = new javax.swing.JMenuItem();
         jmCadastro = new javax.swing.JMenu();
         jmCadastroProjeto = new javax.swing.JMenuItem();
         jmCadastroRequisitos = new javax.swing.JMenuItem();
@@ -112,13 +112,13 @@ public class jfprincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jmConsultaRequisitos);
 
-        jmConsultaUsuario.setText("Usuarios");
-        jmConsultaUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jmListaUser.setText("Usuarios");
+        jmListaUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmConsultaUsuarioActionPerformed(evt);
+                jmListaUserActionPerformed(evt);
             }
         });
-        jMenu2.add(jmConsultaUsuario);
+        jMenu2.add(jmListaUser);
 
         jMenuBar1.add(jMenu2);
 
@@ -218,10 +218,10 @@ public class jfprincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmConsultaProjetosActionPerformed
 
-    private void jmConsultaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultaUsuarioActionPerformed
-        jfConsulta obj = new jfConsulta(master);
+    private void jmListaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmListaUserActionPerformed
+        jfListaUser obj = new jfListaUser();
         obj.setVisible(true);
-    }//GEN-LAST:event_jmConsultaUsuarioActionPerformed
+    }//GEN-LAST:event_jmListaUserActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         
@@ -281,7 +281,7 @@ public class jfprincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmCadastroUsuario;
     private javax.swing.JMenuItem jmConsultaProjetos;
     private javax.swing.JMenuItem jmConsultaRequisitos;
-    private javax.swing.JMenuItem jmConsultaUsuario;
+    private javax.swing.JMenuItem jmListaUser;
     private javax.swing.JMenuItem jmLogin;
     // End of variables declaration//GEN-END:variables
 
