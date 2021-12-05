@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class jfRequisitos extends javax.swing.JFrame {
     
-    UsuarioMasterDTO usuario = new UsuarioMasterDTO();
+    static UsuarioMasterDTO usuario = new UsuarioMasterDTO();
     
     public jfRequisitos(UsuarioMasterDTO usuario) {
         this.usuario=usuario;
@@ -591,7 +591,7 @@ public class jfRequisitos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfRequisitos().setVisible(true);
+                new jfRequisitos(usuario).setVisible(true);
             }
         });
     }

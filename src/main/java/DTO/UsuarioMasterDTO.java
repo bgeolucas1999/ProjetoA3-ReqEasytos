@@ -14,7 +14,7 @@ public class UsuarioMasterDTO {
     private int id_usuario;
     private String login;
     private String senha;
-    private int master = 1;
+    private int master = 2;
     private String nome;
 
     public int getId_usuario() {

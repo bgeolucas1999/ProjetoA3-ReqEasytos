@@ -5,6 +5,7 @@
  */
 package Interface;
 
+import DTO.UsuarioMasterDTO;
 import Persistencia.Conexao;
 import Persistencia.FuncProjeto;
 import Persistencia.FuncRequisitos;
@@ -23,9 +24,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class jfCadastroProjeto extends javax.swing.JFrame {
  
-    static int master;
-    public jfCadastroProjeto(int master) {
-        this.master = master;
+    static UsuarioMasterDTO usuario = new UsuarioMasterDTO();
+    public jfCadastroProjeto(UsuarioMasterDTO usuario) {
+        this.usuario = usuario;
         initComponents();
         
     }
@@ -63,6 +64,8 @@ public class jfCadastroProjeto extends javax.swing.JFrame {
                 formWindowActivated(evt);
             }
         });
+
+        jtUsuarioprop.setEnabled(false);
 
         jLabel1.setText("Nome do Projeto");
 
@@ -227,6 +230,7 @@ public class jfCadastroProjeto extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCarregarProjetoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        jtUsuarioprop.setText(usuario.getNome());
         CarregarTabelaProj();
     }//GEN-LAST:event_formWindowActivated
 
@@ -265,7 +269,7 @@ public class jfCadastroProjeto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfCadastroProjeto(master).setVisible(true);
+                new jfCadastroProjeto(usuario).setVisible(true);
             }
         });
     }

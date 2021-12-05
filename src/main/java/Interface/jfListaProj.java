@@ -5,6 +5,15 @@
  */
 package Interface;
 
+import Persistencia.Conexao;
+import Persistencia.FuncRequisitos;
+import Persistencia.FuncoesUsuariosBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author georg
@@ -27,21 +36,102 @@ public class jfListaProj extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtUsuarios = new javax.swing.JTable();
+        jtPesquisa = new javax.swing.JTextField();
+        jcAtributo = new javax.swing.JComboBox<>();
+        btPesquisa = new javax.swing.JButton();
+        btListar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+
+        jtUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome do Requisito", "Nome do Projeto", "Autor", "Modulo", "Funcionalidade", "Data Criacao", "Autor", "Data da Ultima Alteracao", "Autor da Ultima Alteracao", "Versao", "Prioridade", "Complexidade", "Esforco em Horas", "Estado", "Fase", "Descricao"
+            }
+        ));
+        jScrollPane1.setViewportView(jtUsuarios);
+
+        jcAtributo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcAtributo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ididentificador", "nome", "nomeprojeto", "usuarioprop", "modulo", "funcionalidade", "datacriacao", "autor", "dataultimaalter", "autorultimaalter", "versao", "prioridade", "complexidade", "esforcohoras", "estado", "fase", "descricao", " " }));
+
+        btPesquisa.setText("Pesquisa");
+        btPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisaActionPerformed(evt);
+            }
+        });
+
+        btListar.setText("Listar Todos");
+        btListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btListarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Caixa de Pesquisa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(btPesquisa)
+                        .addGap(18, 18, 18)
+                        .addComponent(btListar)))
+                .addContainerGap(1311, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btListar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
+        pesquisarPorAtributo();
+    }//GEN-LAST:event_btPesquisaActionPerformed
+
+    private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
+        carregarLista();
+    }//GEN-LAST:event_btListarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -79,5 +169,63 @@ public class jfListaProj extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btListar;
+    private javax.swing.JButton btPesquisa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcAtributo;
+    private javax.swing.JTextField jtPesquisa;
+    private javax.swing.JTable jtUsuarios;
     // End of variables declaration//GEN-END:variables
+public void pesquisarPorAtributo(){
+//        int setar = jtUsuarios.getSelectedRow();
+//        jtID.setText(jtUsuarios.getModel().getValueAt(setar,0).toString());
+//        int setar = jtRequisitos.getSelectedRow();
+
+        String atributo = jcAtributo.getSelectedItem().toString();
+        try{String sqlSelect = "select * from requisitos where "+atributo+" = ?";
+        Conexao conexao = new Conexao();
+        
+            FuncRequisitos requisitos = new FuncRequisitos();
+
+
+            System.out.println(atributo);
+            System.out.println(jtPesquisa.getText());
+            
+            Connection conn = conexao.conectabd();
+            PreparedStatement stm = conn.prepareStatement(sqlSelect);
+//            stm.setString(1, atributo);
+//            stm.setString(1, '%'+jtPesquisa.getText()+'%');
+            stm.setString(1,jtPesquisa.getText());
+            System.out.println(stm.toString());
+            ResultSet rs = stm.executeQuery();
+//            java.sql.Date sqldate = new java.sql.Date(jdDatacriacao.getDate().getTime());
+//            java.sql.Date sqldate1 = new java.sql.Date(jdDataAlteracao.getDate().getTime());
+            DefaultTableModel modelo = (DefaultTableModel) jtUsuarios.getModel();
+            modelo.setNumRows(0);
+//            DefaultTableModel modelo1 = (DefaultTableModel) jtRequisitos.getModel();
+//            modelo1.setNumRows(0);
+            while(rs.next()){
+
+//                jtNome.setText(rs.getString("nome"));
+//                jtID.setText(rs.getString("id"));
+//                jtEmail.setText(rs.getString("email"));
+//                jtTel.setText(rs.getString("fone"));
+//                jtUsuario.setText(rs.getString("login"));
+//                jtSenha.setText(rs.getString("senha"));
+//                jtMaster.setText(rs.getString("master"));
+                modelo.addRow(new Object[]{rs.getInt("ididentificador"),rs.getString("nome"),rs.getString("nome projeto"),rs.getString("usuarioprop"),rs.getString("funcionalidade"),rs.getDate("datacriacao"),rs.getString("autor"),
+                rs.getDate("dataultimaalter"),rs.getString("autorultimaalter"),rs.getInt("versao"),rs.getString("prioridade"),rs.getString("complexidade"),rs.getString("esforcohoras"),rs.getString("estado"),
+                rs.getString("fase"),rs.getString("descricao") });
+
+
+
+            }
+            rs.close();
+            conn.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

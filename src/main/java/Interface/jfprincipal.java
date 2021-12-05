@@ -14,7 +14,7 @@ import DTO.UsuarioMasterDTO;
 public class jfprincipal extends javax.swing.JFrame {
     
 
-    UsuarioMasterDTO usuario = new UsuarioMasterDTO();
+    static UsuarioMasterDTO usuario = new UsuarioMasterDTO();
     
     
     public jfprincipal(UsuarioMasterDTO usuario) {
@@ -26,9 +26,10 @@ public class jfprincipal extends javax.swing.JFrame {
        
         
     }
-    public void desabilitarBotao(int master){
-        System.out.println("master "+master);
-        if(master==1){
+    public void desabilitarBotao(UsuarioMasterDTO usuario){
+        jfprincipal.usuario = usuario;
+        System.out.println("master "+usuario.getMaster());
+        if(usuario.getMaster()==1){
             jmCadastroProjeto.setEnabled(true);
             jmCadastroRequisitos.setEnabled(true);
             jmCadastroUsuario.setEnabled(true);
@@ -37,7 +38,7 @@ public class jfprincipal extends javax.swing.JFrame {
             jmListaUser.setEnabled(true);
 
             
-        }else if(master==0){
+        }else if(usuario.getMaster()==0){
             jmListaProj.setEnabled(true);
             jmListaReq.setEnabled(true); 
             jmCadastroRequisitos.setEnabled(true);
@@ -82,7 +83,7 @@ public class jfprincipal extends javax.swing.JFrame {
         jdpPrincipal.setLayout(jdpPrincipalLayout);
         jdpPrincipalLayout.setHorizontalGroup(
             jdpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1192, Short.MAX_VALUE)
+            .addGap(0, 1239, Short.MAX_VALUE)
         );
         jdpPrincipalLayout.setVerticalGroup(
             jdpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +177,7 @@ public class jfprincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jdpPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +201,7 @@ public class jfprincipal extends javax.swing.JFrame {
 
     private void jmCadastroProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadastroProjetoActionPerformed
        
-        jfCadastroProjeto obj = new jfCadastroProjeto(master);       
+        jfCadastroProjeto obj = new jfCadastroProjeto(usuario);       
         obj.setVisible(true);
         
 // TODO add your handling code here:
@@ -219,7 +220,7 @@ public class jfprincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmListaReqActionPerformed
 
     private void jmCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadastroUsuarioActionPerformed
-        jfCadastro obj = new jfCadastro(master);
+        jfCadastro obj = new jfCadastro(usuario.getMaster());
         obj.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jmCadastroUsuarioActionPerformed
@@ -236,8 +237,10 @@ public class jfprincipal extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         
-            
-        desabilitarBotao(master);    
+        
+        desabilitarBotao(usuario);   
+           
+          
         
     }//GEN-LAST:event_formWindowActivated
 

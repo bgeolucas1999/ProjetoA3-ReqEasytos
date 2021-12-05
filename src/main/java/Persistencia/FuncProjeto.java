@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Persistencia;
-import Interface.jfConsultaProjeto;
 import Interface.jfConsulta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,36 +41,36 @@ public class FuncProjeto {
         }
     
 }
-        public void consultarTodosProjetos() throws SQLException{
-        
-        
-        String sqlSelect = "select * from projetos";
-        Conexao conexao = new Conexao();
-        
-        
-        try(Connection conn = conexao.conectabd()){
-            PreparedStatement stm = conn.prepareStatement(sqlSelect);
-            //stm.setString(1, getNomeprojeto());
-            ResultSet rs = stm.executeQuery();
-            jfConsultaProjeto tabela = new jfConsultaProjeto(master);
-            DefaultTableModel modelo = (DefaultTableModel) tabela.jtProjetos1.getModel();
-            modelo.setNumRows(0);
-            while(rs.next()){
-                modelo.addRow(new Object[]{rs.getInt("id"),rs.getString("nome"),rs.getString("descricao"),rs.getString("usuarioprop") });
-//                int matricula = rs.getInt("matricula");
-//                String nome = rs.getString("nome");
-//                String fone = rs.getString("fone");
-//                String email = rs.getString("email");
-//                msg = msg + String.format("Matricula: %d , Nome: %s , Fone: %s , Email: %s.",matricula,nome,fone,email)+ "\n";
-                
-            }
-            rs.close();
-            conn.close();
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
+//        public void consultarTodosProjetos() throws SQLException{
+//        
+//        
+//        String sqlSelect = "select * from projetos";
+//        Conexao conexao = new Conexao();
+//        
+//        
+//        try(Connection conn = conexao.conectabd()){
+//            PreparedStatement stm = conn.prepareStatement(sqlSelect);
+//            //stm.setString(1, getNomeprojeto());
+//            ResultSet rs = stm.executeQuery();
+//            jfConsultaProjeto tabela = new jfConsultaProjeto(master);
+//            DefaultTableModel modelo = (DefaultTableModel) tabela.jtProjetos1.getModel();
+//            modelo.setNumRows(0);
+//            while(rs.next()){
+//                modelo.addRow(new Object[]{rs.getInt("id"),rs.getString("nome"),rs.getString("descricao"),rs.getString("usuarioprop") });
+////                int matricula = rs.getInt("matricula");
+////                String nome = rs.getString("nome");
+////                String fone = rs.getString("fone");
+////                String email = rs.getString("email");
+////                msg = msg + String.format("Matricula: %d , Nome: %s , Fone: %s , Email: %s.",matricula,nome,fone,email)+ "\n";
+//                
+//            }
+//            rs.close();
+//            conn.close();
+//
+//        }catch(SQLException e){
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * @return the id

@@ -130,6 +130,9 @@
     <Component class="javax.swing.JTextField" name="jtNome">
     </Component>
     <Component class="javax.swing.JTextField" name="jtUsuarioprop">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
