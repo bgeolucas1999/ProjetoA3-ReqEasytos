@@ -4,22 +4,21 @@
  * and open the template in the editor.
  */
 package Interface;
-import Persistencia.UsuarioBD;
+
 import DTO.UsuarioMasterDTO;
-import com.mysql.cj.xdevapi.Result;
-import java.sql.ResultSet;
+import Persistencia.UsuarioBD;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author georg
  */
-public class jifLogin extends javax.swing.JInternalFrame {
+public class jfLogin extends javax.swing.JFrame {
 
     /**
-     * Creates new form jifLogin
+     * Creates new form jfLogin
      */
-    public jifLogin() {
+    public jfLogin() {
         initComponents();
     }
 
@@ -32,43 +31,25 @@ public class jifLogin extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jtUsuario = new javax.swing.JTextField();
-        jbLogin = new javax.swing.JButton();
-        jbSair = new javax.swing.JButton();
         jtSenha = new javax.swing.JTextField();
+        jtUsuario = new javax.swing.JTextField();
+        jbSair = new javax.swing.JButton();
+        jbLogin = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
-        setTitle("Login");
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-        });
-
-        jLabel1.setText("Usuario");
-
-        jLabel2.setText("Senha");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtUsuarioActionPerformed(evt);
+            }
+        });
+
+        jbSair.setText("Sair");
+        jbSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSairActionPerformed(evt);
             }
         });
 
@@ -79,12 +60,9 @@ public class jifLogin extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSair.setText("Sair");
-        jbSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSairActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Senha");
+
+        jLabel1.setText("Usuario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,7 +75,7 @@ public class jifLogin extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jtUsuario)
                     .addComponent(jtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -122,10 +100,10 @@ public class jifLogin extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jbSair, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        setBounds(300, 20, 466, 240);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtUsuarioActionPerformed
@@ -133,51 +111,79 @@ public class jifLogin extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtUsuarioActionPerformed
 
     private void jbSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSairActionPerformed
-       dispose();
+        dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jbSairActionPerformed
 
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        //jfprincipal.login=true;        // TODO add your handling code here:
-    }//GEN-LAST:event_formInternalFrameOpened
-
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         try {
-        String login,senha;
-        login = jtUsuario.getText();
-        senha = jtSenha.getText();
-        int master;
-        
-        UsuarioMasterDTO usuario = new UsuarioMasterDTO();
-        
-        usuario.setLogin(login);
-        usuario.setSenha(senha);
+            String login,senha;
+            login = jtUsuario.getText();
+            senha = jtSenha.getText();
+            int master;
 
-        UsuarioBD objusuario = new UsuarioBD();
-        usuario = objusuario.userautentication(usuario);
-        if(usuario.getLogin().equalsIgnoreCase(login)&&usuario.getSenha().equalsIgnoreCase(senha)){
-            System.out.println("\n"+usuario.getMaster());
-            
-            
-            //jfConsultaProjeto objTelaConsulta = new jfConsultaProjeto(master);
-            //objTelaConsulta.setVisible(true);
-            
-            dispose();
-            new jfprincipal(usuario);
-            
-        }else{
-            
-            JOptionPane.showMessageDialog(null, "Essa merda deu erro");
-            
-        }
+            UsuarioMasterDTO usuario = new UsuarioMasterDTO();
+
+            usuario.setLogin(login);
+            usuario.setSenha(senha);
+
+            UsuarioBD objusuario = new UsuarioBD();
+            usuario = objusuario.userautentication(usuario);
+            if(usuario.getLogin().equalsIgnoreCase(login)&&usuario.getSenha().equalsIgnoreCase(senha)){
+                System.out.println("\n"+usuario.getMaster());
+
+                //jfConsultaProjeto objTelaConsulta = new jfConsultaProjeto(master);
+                //objTelaConsulta.setVisible(true);
+                new jfprincipal(usuario);   
+                dispose();
+                
+
+            }else{
+
+                JOptionPane.showMessageDialog(null, "Essa merda deu erro");
+
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro Botao"+e);
         }
-        
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jbLoginActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(jfLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(jfLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(jfLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(jfLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new jfLogin().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

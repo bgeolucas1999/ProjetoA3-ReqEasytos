@@ -21,7 +21,7 @@ public class UsuarioBD {
     public UsuarioMasterDTO userautentication(UsuarioMasterDTO usuario) {
 
                 
-		String sqlSelect = "SELECT login,senha,master FROM usuarios WHERE login=? and senha = ?";
+		String sqlSelect = "SELECT login,senha,master,nome FROM usuarios WHERE login=? and senha = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = Conexao.conectabd();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
@@ -32,6 +32,7 @@ public class UsuarioBD {
 					usuario.setLogin(rs.getString("login"));
 					usuario.setSenha(rs.getString("senha"));
                                         usuario.setMaster(rs.getInt("master"));
+                                        usuario.setNome(rs.getString("nome"));
                                 }
 			} catch (SQLException e) {
 				e.printStackTrace();

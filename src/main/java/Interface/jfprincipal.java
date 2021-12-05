@@ -5,21 +5,25 @@
  */
 package Interface;
 
+import DTO.UsuarioMasterDTO;
+
 /**
  *
  * @author georg
  */
 public class jfprincipal extends javax.swing.JFrame {
-
-    static int master;
     
-    /**
-     * Creates new form jfprincipal
-     */
-    public jfprincipal(int master) {
-        this.master = master;
-        initComponents();
 
+    UsuarioMasterDTO usuario = new UsuarioMasterDTO();
+    
+    
+    public jfprincipal(UsuarioMasterDTO usuario) {
+        this.usuario = usuario;
+        System.out.println("\n"+usuario.getMaster());
+        int master = usuario.getMaster();
+        
+        initComponents();
+       
         
     }
     public void desabilitarBotao(int master){
@@ -27,13 +31,16 @@ public class jfprincipal extends javax.swing.JFrame {
         if(master==1){
             jmCadastroProjeto.setEnabled(true);
             jmCadastroRequisitos.setEnabled(true);
-            jmCadastroUsuario.setEnabled(true); 
+            jmCadastroUsuario.setEnabled(true);
+            jmListaProj.setEnabled(true);
+            jmListaReq.setEnabled(true);
+            jmListaUser.setEnabled(true);
 
             
-        }else{
-            jmCadastroProjeto.setEnabled(false);
-            jmCadastroRequisitos.setEnabled(false);
-            jmCadastroUsuario.setEnabled(false);           
+        }else if(master==0){
+            jmListaProj.setEnabled(true);
+            jmListaReq.setEnabled(true); 
+            jmCadastroRequisitos.setEnabled(true);
         }
     }
 
@@ -51,8 +58,8 @@ public class jfprincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmLogin = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jmConsultaProjetos = new javax.swing.JMenuItem();
-        jmConsultaRequisitos = new javax.swing.JMenuItem();
+        jmListaProj = new javax.swing.JMenuItem();
+        jmListaReq = new javax.swing.JMenuItem();
         jmListaUser = new javax.swing.JMenuItem();
         jmCadastro = new javax.swing.JMenu();
         jmCadastroProjeto = new javax.swing.JMenuItem();
@@ -75,7 +82,7 @@ public class jfprincipal extends javax.swing.JFrame {
         jdpPrincipal.setLayout(jdpPrincipalLayout);
         jdpPrincipalLayout.setHorizontalGroup(
             jdpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1231, Short.MAX_VALUE)
+            .addGap(0, 1192, Short.MAX_VALUE)
         );
         jdpPrincipalLayout.setVerticalGroup(
             jdpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,23 +103,26 @@ public class jfprincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Listagem");
 
-        jmConsultaProjetos.setText("Projetos");
-        jmConsultaProjetos.addActionListener(new java.awt.event.ActionListener() {
+        jmListaProj.setText("Projetos");
+        jmListaProj.setEnabled(false);
+        jmListaProj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmConsultaProjetosActionPerformed(evt);
+                jmListaProjActionPerformed(evt);
             }
         });
-        jMenu2.add(jmConsultaProjetos);
+        jMenu2.add(jmListaProj);
 
-        jmConsultaRequisitos.setText("Requisitos");
-        jmConsultaRequisitos.addActionListener(new java.awt.event.ActionListener() {
+        jmListaReq.setText("Requisitos");
+        jmListaReq.setEnabled(false);
+        jmListaReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmConsultaRequisitosActionPerformed(evt);
+                jmListaReqActionPerformed(evt);
             }
         });
-        jMenu2.add(jmConsultaRequisitos);
+        jMenu2.add(jmListaReq);
 
         jmListaUser.setText("Usuarios");
+        jmListaUser.setEnabled(false);
         jmListaUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmListaUserActionPerformed(evt);
@@ -130,6 +140,7 @@ public class jfprincipal extends javax.swing.JFrame {
         });
 
         jmCadastroProjeto.setText("Projetos");
+        jmCadastroProjeto.setEnabled(false);
         jmCadastroProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmCadastroProjetoActionPerformed(evt);
@@ -138,6 +149,7 @@ public class jfprincipal extends javax.swing.JFrame {
         jmCadastro.add(jmCadastroProjeto);
 
         jmCadastroRequisitos.setText("Requisitos");
+        jmCadastroRequisitos.setEnabled(false);
         jmCadastroRequisitos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmCadastroRequisitosActionPerformed(evt);
@@ -146,6 +158,7 @@ public class jfprincipal extends javax.swing.JFrame {
         jmCadastro.add(jmCadastroRequisitos);
 
         jmCadastroUsuario.setText("Usuarios");
+        jmCadastroUsuario.setEnabled(false);
         jmCadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmCadastroUsuarioActionPerformed(evt);
@@ -161,7 +174,9 @@ public class jfprincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jdpPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,8 +188,6 @@ public class jfprincipal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setExtendedState(MAXIMIZED_BOTH);
-        //jfprincipal.cadastro=false;
-        //jfprincipal.login=false;
 
 
         // TODO add your handling code here:
@@ -195,16 +208,15 @@ public class jfprincipal extends javax.swing.JFrame {
 
     private void jmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLoginActionPerformed
         //if(login==false){
-        jifLogin obj = new jifLogin();
-        jdpPrincipal.add(obj);
-        obj.setVisible(true);
+        new jfLogin().setVisible(true);
+
         //}
         // TODO add your handling code here:
     }//GEN-LAST:event_jmLoginActionPerformed
 
-    private void jmConsultaRequisitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultaRequisitosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmConsultaRequisitosActionPerformed
+    private void jmListaReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmListaReqActionPerformed
+        new jfListaReq().setVisible(true);
+    }//GEN-LAST:event_jmListaReqActionPerformed
 
     private void jmCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadastroUsuarioActionPerformed
         jfCadastro obj = new jfCadastro(master);
@@ -212,11 +224,10 @@ public class jfprincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmCadastroUsuarioActionPerformed
 
-    private void jmConsultaProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultaProjetosActionPerformed
-        jfConsultaProjeto obj = new jfConsultaProjeto(master);
-        obj.setVisible(true);
+    private void jmListaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmListaProjActionPerformed
+        new jfListaProj().setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_jmConsultaProjetosActionPerformed
+    }//GEN-LAST:event_jmListaProjActionPerformed
 
     private void jmListaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmListaUserActionPerformed
         jfListaUser obj = new jfListaUser();
@@ -226,12 +237,12 @@ public class jfprincipal extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         
             
-        //desabilitarBotao(master);    
+        desabilitarBotao(master);    
         
     }//GEN-LAST:event_formWindowActivated
 
     private void jmCadastroRequisitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadastroRequisitosActionPerformed
-        jfRequisitos obj = new jfRequisitos();
+        jfRequisitos obj = new jfRequisitos(usuario);
         obj.setVisible(true);
     }//GEN-LAST:event_jmCadastroRequisitosActionPerformed
 
@@ -265,7 +276,8 @@ public class jfprincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfprincipal(master).setVisible(true);
+                new jfprincipal(usuario).setVisible(true);
+                
             }
         });
     }
@@ -279,8 +291,8 @@ public class jfprincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmCadastroProjeto;
     private javax.swing.JMenuItem jmCadastroRequisitos;
     private javax.swing.JMenuItem jmCadastroUsuario;
-    private javax.swing.JMenuItem jmConsultaProjetos;
-    private javax.swing.JMenuItem jmConsultaRequisitos;
+    private javax.swing.JMenuItem jmListaProj;
+    private javax.swing.JMenuItem jmListaReq;
     private javax.swing.JMenuItem jmListaUser;
     private javax.swing.JMenuItem jmLogin;
     // End of variables declaration//GEN-END:variables

@@ -24,25 +24,28 @@
             <Property name="text" type="java.lang.String" value="Listagem"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmConsultaProjetos">
+            <MenuItem class="javax.swing.JMenuItem" name="jmListaProj">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Projetos"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmConsultaProjetosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmListaProjActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmConsultaRequisitos">
+            <MenuItem class="javax.swing.JMenuItem" name="jmListaReq">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Requisitos"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmConsultaRequisitosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmListaReqActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmListaUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmListaUserActionPerformed"/>
@@ -61,6 +64,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmCadastroProjeto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Projetos"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmCadastroProjetoActionPerformed"/>
@@ -69,6 +73,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmCadastroRequisitos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Requisitos"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmCadastroRequisitosActionPerformed"/>
@@ -77,6 +82,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmCadastroUsuario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmCadastroUsuarioActionPerformed"/>
@@ -118,7 +124,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jdpPrincipal" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jdpPrincipal" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="39" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -133,7 +142,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1231" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1192" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

@@ -5,6 +5,7 @@
  */
 package Interface;
 
+import DTO.UsuarioMasterDTO;
 import Persistencia.Conexao;
 import Persistencia.FuncProjeto;
 import Persistencia.FuncRequisitos;
@@ -20,11 +21,11 @@ import javax.swing.table.DefaultTableModel;
  * @author georg
  */
 public class jfRequisitos extends javax.swing.JFrame {
-
-    /**
-     * Creates new form jfRequisitos
-     */
-    public jfRequisitos() {
+    
+    UsuarioMasterDTO usuario = new UsuarioMasterDTO();
+    
+    public jfRequisitos(UsuarioMasterDTO usuario) {
+        this.usuario=usuario;
         initComponents();
 
 
@@ -99,6 +100,8 @@ public class jfRequisitos extends javax.swing.JFrame {
                 jtNomeActionPerformed(evt);
             }
         });
+
+        jtAutor.setEnabled(false);
 
         jtPrioridade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -457,7 +460,7 @@ public class jfRequisitos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbConsultarRequisitosActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+        jtAutor.setText(usuario.getNome());
         carregarProjeto();
     
     }//GEN-LAST:event_formWindowActivated
