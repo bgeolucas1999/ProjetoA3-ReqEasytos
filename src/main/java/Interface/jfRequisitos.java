@@ -10,11 +10,16 @@ import Persistencia.Conexao;
 import Persistencia.FuncProjeto;
 import Persistencia.FuncRequisitos;
 import Persistencia.FuncoesUsuariosBD;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -26,8 +31,9 @@ public class jfRequisitos extends javax.swing.JFrame {
     
     public jfRequisitos(UsuarioMasterDTO usuario) {
         this.usuario=usuario;
+        
         initComponents();
-
+        jdDataAlteracao.setDate(Date.valueOf(LocalDate.now()));
 
     }
 
@@ -44,7 +50,6 @@ public class jfRequisitos extends javax.swing.JFrame {
         jtUsuarioprop = new javax.swing.JTextField();
         jtModulo = new javax.swing.JTextField();
         jtFuncionalidades = new javax.swing.JTextField();
-        jtAutor = new javax.swing.JTextField();
         jtVersao = new javax.swing.JTextField();
         jtAutoralteracao = new javax.swing.JTextField();
         jtPrioridade = new javax.swing.JTextField();
@@ -55,8 +60,6 @@ public class jfRequisitos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -66,7 +69,6 @@ public class jfRequisitos extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jdDatacriacao = new com.toedter.calendar.JDateChooser();
         jdDataAlteracao = new com.toedter.calendar.JDateChooser();
         jbConsultarRequisitos = new javax.swing.JButton();
         jbAdicionar = new javax.swing.JButton();
@@ -86,6 +88,7 @@ public class jfRequisitos extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jtID = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Requisitos");
@@ -101,7 +104,7 @@ public class jfRequisitos extends javax.swing.JFrame {
             }
         });
 
-        jtAutor.setEnabled(false);
+        jtAutoralteracao.setEnabled(false);
 
         jtPrioridade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,10 +119,6 @@ public class jfRequisitos extends javax.swing.JFrame {
         jLabel3.setText("Modulo");
 
         jLabel4.setText("Funcionalidades");
-
-        jLabel5.setText("Data de criacao");
-
-        jLabel6.setText("Autor");
 
         jLabel7.setText("Data da ultima Alteracao");
 
@@ -138,6 +137,8 @@ public class jfRequisitos extends javax.swing.JFrame {
         jLabel14.setText("Fase");
 
         jLabel15.setText("Descricao");
+
+        jdDataAlteracao.setEnabled(false);
 
         jbConsultarRequisitos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbConsultarRequisitos.setText("Carregar Tabela de Requisitos");
@@ -248,8 +249,20 @@ public class jfRequisitos extends javax.swing.JFrame {
         });
 
         jtID.setEnabled(false);
+        jtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtIDActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("ID do Requisito");
+
+        jButton1.setText("Limpar Form.");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -258,50 +271,24 @@ public class jfRequisitos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jtNomeProjeto, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jtAutor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                        .addComponent(jtFuncionalidades, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                        .addComponent(jtModulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                        .addComponent(jtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jtVersao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jdDatacriacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jtUsuarioprop, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-                    .addComponent(jLabel16)
-                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbCarregarNomeProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbConsultarRequisitos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbCarregarForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jbAtualizar)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jbSair, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jtNomeProjeto, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtFuncionalidades, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                .addComponent(jtModulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                .addComponent(jtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtVersao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtUsuarioprop, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                            .addComponent(jLabel16)
+                            .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,7 +310,31 @@ public class jfRequisitos extends javax.swing.JFrame {
                                 .addComponent(jtEstado))
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3)))
+                        .addComponent(jScrollPane3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbCarregarNomeProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbConsultarRequisitos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbCarregarForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jbAtualizar)
+                                .addGap(32, 32, 32)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jbSair, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -361,16 +372,12 @@ public class jfRequisitos extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane3)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel15))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jbAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jbConsultarRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbConsultarRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbCarregarForm, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -396,45 +403,42 @@ public class jfRequisitos extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jLabel10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jdDatacriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)
-                                .addComponent(jtNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(424, 424, 424)
-                                        .addComponent(jScrollPane2)))
-                                .addContainerGap())))))
+                                        .addGap(157, 157, 157)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jLabel16)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jtNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel17)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addGap(104, 104, 104))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(jScrollPane2)))))
+                        .addContainerGap())))
         );
 
         pack();
@@ -460,9 +464,12 @@ public class jfRequisitos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbConsultarRequisitosActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        jtAutor.setText(usuario.getNome());
+//        jtAutor.setText(usuario.getNome());
+        jtAutoralteracao.setText(usuario.getNome());
         carregarProjeto();
-    
+        Date date = Date.valueOf(LocalDate.now());
+        jdDataAlteracao.setDate(date);
+        System.out.println(date);
     }//GEN-LAST:event_formWindowActivated
 
     private void jbSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSairActionPerformed
@@ -489,7 +496,33 @@ public class jfRequisitos extends javax.swing.JFrame {
         deletarRequisito();
         CarregarTabelaRequisitos();
     }//GEN-LAST:event_jButton4ActionPerformed
-        public void carregarProjeto(){
+
+    private void jtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtIDActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                jtNome.setText("");
+                jtUsuarioprop.setText("");
+                jtModulo.setText("");
+                jtFuncionalidades.setText("");
+                //jdDatacriacao.setDate(rs.getDate("datacriacao"));
+                //jtAutor.setText(rs.getString("autor"));
+                //jdDataAlteracao.setDate(rs.getDate("dataultimaalter"));
+                //jtAutoralteracao.setText(rs.getString("autorultimaalter"));
+                jtVersao.setText("");
+                jtPrioridade.setText("");
+                jtComplexidade.setText("");
+                jtEsforcohoras.setText("");
+                jtEstado.setText("");
+                jtFase.setText("");
+                jtpDescricao.setText("");
+                jtID.setText("");
+                jtNomeProjeto.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
+       
+    
+    public void carregarProjeto(){
                     
         String sqlSelect = "select * from projetos";
         Conexao conexao = new Conexao();
@@ -595,7 +628,7 @@ public class jfRequisitos extends javax.swing.JFrame {
             }
         });
     }
-
+    
         public void PreencherForm(){
         int setar = jtRequisitos.getSelectedRow();
         jtID.setText(jtRequisitos.getModel().getValueAt(setar,0).toString());
@@ -624,10 +657,10 @@ public class jfRequisitos extends javax.swing.JFrame {
                 jtUsuarioprop.setText(rs.getString("usuarioprop"));
                 jtModulo.setText(rs.getString("modulo"));
                 jtFuncionalidades.setText(rs.getString("funcionalidade"));
-                jdDatacriacao.setDate(rs.getDate("datacriacao"));
-                jtAutor.setText(rs.getString("autor"));
-                jdDataAlteracao.setDate(rs.getDate("dataultimaalter"));
-                jtAutoralteracao.setText(rs.getString("autorultimaalter"));
+                //jdDatacriacao.setDate(rs.getDate("datacriacao"));
+                //jtAutor.setText(rs.getString("autor"));
+                //jdDataAlteracao.setDate(rs.getDate("dataultimaalter"));
+                //jtAutoralteracao.setText(rs.getString("autorultimaalter"));
                 jtVersao.setText(rs.getString("versao"));
                 jtPrioridade.setText(rs.getString("prioridade"));
                 jtComplexidade.setText(rs.getString("complexidade"));
@@ -689,15 +722,15 @@ public class jfRequisitos extends javax.swing.JFrame {
                 String nomeprojeto;
                 int ididentificador;
                 
-                java.sql.Date sqldate = new java.sql.Date(jdDatacriacao.getDate().getTime());
+//                java.sql.Date sqldate = new java.sql.Date(jdDatacriacao.getDate().getTime());
                 java.sql.Date sqldate1 = new java.sql.Date(jdDataAlteracao.getDate().getTime());
                 
                 nome = jtNome.getText();
                 usuarioprop = jtUsuarioprop.getText();
                 modulo = jtModulo.getText();
                 funcionalidade = jtFuncionalidades.getText();
-                datacriacao = sqldate;
-                autor = jtUsuarioprop.getText();
+//                datacriacao = sqldate;
+//                autor = jtUsuarioprop.getText();
                 dataultimaalteracao = sqldate1;
                 autorultimaalteracao = jtAutoralteracao.getText();
                 versao = jtVersao.getText();
@@ -718,8 +751,8 @@ public class jfRequisitos extends javax.swing.JFrame {
                 requisitos.setUsuarioprop(usuarioprop);
                 requisitos.setModulo(modulo);
                 requisitos.setFuncionalidade(funcionalidade);
-                requisitos.setDatacriacao(datacriacao);
-                requisitos.setAutor(autor);
+//                requisitos.setDatacriacao(datacriacao);
+//                requisitos.setAutor(autor);
                 requisitos.setDataultimaalteracao(dataultimaalteracao);
                 requisitos.setAutorultimaalteracao(autorultimaalteracao);
                 requisitos.setVersao(versao);
@@ -734,7 +767,7 @@ public class jfRequisitos extends javax.swing.JFrame {
         
                             
 
-                String sqlInsert = "update requisitos set nome = ?, descricao = ?,usuarioprop = ?, autor = ?, datacriacao = ?, modulo = ?, fase = ?,estado = ?,esforcohoras = ?,complexidade = ?,prioridade = ?,versao = ?,autorultimaalter = ?,dataultimaalter = ?, funcionalidade = ? where ididentificador = ?";
+                String sqlInsert = "update requisitos set nome = ?, descricao = ?,usuarioprop = ?, modulo = ?, fase = ?,estado = ?,esforcohoras = ?,complexidade = ?,prioridade = ?,versao = ?,autorultimaalter = ?,dataultimaalter = ?, funcionalidade = ? where ididentificador = ?";
                 Conexao conexao = new Conexao();
                 System.out.println("To parado aqui 3");
                 try(Connection conn = conexao.conectabd()){
@@ -743,19 +776,19 @@ public class jfRequisitos extends javax.swing.JFrame {
                     stm.setString(1, requisitos.getNome());
                     stm.setString(2, requisitos.getDescricao());
                     stm.setString(3, requisitos.getUsuarioprop());
-                    stm.setString(4, requisitos.getAutor());
-                    stm.setDate(5, requisitos.getDatacriacao());
-                    stm.setString(6, requisitos.getModulo());
-                    stm.setString(7, requisitos.getFase());
-                    stm.setString(8, requisitos.getEstado());
-                    stm.setString(9, requisitos.getEsforcohoras());
-                    stm.setString(10, requisitos.getComplexidade());
-                    stm.setString(11, requisitos.getPrioridade());
-                    stm.setString(12, requisitos.getVersao());
-                    stm.setString(13, requisitos.getAutorultimaalteracao());
-                    stm.setDate(14, requisitos.getDataultimaalteracao());
-                    stm.setString(15, requisitos.getFuncionalidade());
-                    stm.setInt(16, requisitos.getIdidentificador());                    
+//                    stm.setString(4, requisitos.getAutor());
+//                    stm.setDate(5, requisitos.getDatacriacao());
+                    stm.setString(4, requisitos.getModulo());
+                    stm.setString(5, requisitos.getFase());
+                    stm.setString(6, requisitos.getEstado());
+                    stm.setString(7, requisitos.getEsforcohoras());
+                    stm.setString(8, requisitos.getComplexidade());
+                    stm.setString(9, requisitos.getPrioridade());
+                    stm.setString(10, requisitos.getVersao());
+                    stm.setString(11, requisitos.getAutorultimaalteracao());
+                    stm.setDate(12, requisitos.getDataultimaalteracao());
+                    stm.setString(13, requisitos.getFuncionalidade());
+                    stm.setInt(14, requisitos.getIdidentificador());                    
 
                     stm.execute();
                     CarregarTabelaRequisitos();
@@ -774,8 +807,8 @@ public class jfRequisitos extends javax.swing.JFrame {
                 String usuarioprop;
                 String modulo;
                 String funcionalidade;
-                Date datacriacao;
-                String autor;
+                Date datacriacao = Date.valueOf(LocalDate.now());
+                String autor = usuario.getNome();
                 Date dataultimaalteracao;
                 String autorultimaalteracao;
                 String versao;
@@ -788,15 +821,15 @@ public class jfRequisitos extends javax.swing.JFrame {
                 String nomeprojeto;
                 
                 
-                java.sql.Date sqldate = new java.sql.Date(jdDatacriacao.getDate().getTime());
+//                java.sql.Date sqldate = new java.sql.Date(jdDatacriacao.getDate().getTime());
                 java.sql.Date sqldate1 = new java.sql.Date(jdDataAlteracao.getDate().getTime());
                 
                 nome = jtNome.getText();
                 usuarioprop = jtUsuarioprop.getText();
                 modulo = jtModulo.getText();
                 funcionalidade = jtFuncionalidades.getText();
-                datacriacao = sqldate;
-                autor = jtUsuarioprop.getText();
+                datacriacao = Date.valueOf(LocalDate.now());
+//                autor = jtUsuarioprop.getText();
                 dataultimaalteracao = sqldate1;
                 autorultimaalteracao = jtAutoralteracao.getText();
                 versao = jtVersao.getText();
@@ -843,6 +876,7 @@ public class jfRequisitos extends javax.swing.JFrame {
         }
         }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -856,8 +890,6 @@ public class jfRequisitos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -871,8 +903,6 @@ public class jfRequisitos extends javax.swing.JFrame {
     private javax.swing.JButton jbConsultarRequisitos;
     private javax.swing.JButton jbSair;
     private com.toedter.calendar.JDateChooser jdDataAlteracao;
-    private com.toedter.calendar.JDateChooser jdDatacriacao;
-    private javax.swing.JTextField jtAutor;
     private javax.swing.JTextField jtAutoralteracao;
     private javax.swing.JTextField jtComplexidade;
     private javax.swing.JTextField jtEsforcohoras;

@@ -44,7 +44,7 @@ public class jfListaReq extends javax.swing.JFrame {
         jtUsuarios = new javax.swing.JTable();
         jcAtributo = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btPesquisa.setText("Pesquisa");
         btPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +73,15 @@ public class jfListaReq extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nome do Requisito", "Nome do Projeto", "Autor", "Modulo", "Funcionalidade", "Data Criacao", "Autor", "Data da Ultima Alteracao", "Autor da Ultima Alteracao", "Versao", "Prioridade", "Complexidade", "Esforco em Horas", "Estado", "Fase", "Descricao"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Long.class, java.lang.Object.class, java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jtUsuarios);
         if (jtUsuarios.getColumnModel().getColumnCount() > 0) {
             jtUsuarios.getColumnModel().getColumn(0).setPreferredWidth(15);
