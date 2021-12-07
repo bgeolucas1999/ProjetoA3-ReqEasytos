@@ -5,6 +5,15 @@
  */
 package Interface;
 
+import Persistencia.Conexao;
+import Persistencia.FuncRequisitos;
+import Persistencia.FuncoesUsuariosBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author georg
@@ -27,31 +36,15 @@ public class jfListaReq extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtUsuarios = new javax.swing.JTable();
         jtPesquisa = new javax.swing.JTextField();
-        jcAtributo = new javax.swing.JComboBox<>();
         btPesquisa = new javax.swing.JButton();
         btListar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtUsuarios = new javax.swing.JTable();
+        jcAtributo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jtUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Nome", "Email", "Fone", "Login"
-            }
-        ));
-        jScrollPane1.setViewportView(jtUsuarios);
-
-        jcAtributo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcAtributo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "id", "nome", "email", "fone", "login", "senha" }));
 
         btPesquisa.setText("Pesquisa");
         btPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +62,26 @@ public class jfListaReq extends javax.swing.JFrame {
 
         jLabel1.setText("Caixa de Pesquisa");
 
+        jtUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome do Requisito", "Nome do Projeto", "Autor", "Modulo", "Funcionalidade", "Data Criacao", "Autor", "Data da Ultima Alteracao", "Autor da Ultima Alteracao", "Versao", "Prioridade", "Complexidade", "Esforco em Horas", "Estado", "Fase", "Descricao"
+            }
+        ));
+        jScrollPane1.setViewportView(jtUsuarios);
+        if (jtUsuarios.getColumnModel().getColumnCount() > 0) {
+            jtUsuarios.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
+
+        jcAtributo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcAtributo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ididentificador", "nome", "nomeprojeto", "usuarioprop", "modulo", "funcionalidade", "datacriacao", "autor", "dataultimaalter", "autorultimaalter", "versao", "prioridade", "complexidade", "esforcohoras", "estado", "fase", "descricao", " " }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,13 +92,13 @@ public class jfListaReq extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
                         .addComponent(btPesquisa)
-                        .addGap(28, 28, 28)
+                        .addGap(18, 18, 18)
                         .addComponent(btListar)))
-                .addContainerGap(981, Short.MAX_VALUE))
+                .addContainerGap(1332, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
@@ -95,12 +108,12 @@ public class jfListaReq extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btListar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))
+                    .addComponent(btListar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,4 +171,104 @@ public class jfListaReq extends javax.swing.JFrame {
     private javax.swing.JTextField jtPesquisa;
     private javax.swing.JTable jtUsuarios;
     // End of variables declaration//GEN-END:variables
+public void pesquisarPorAtributo(){
+//        int setar = jtUsuarios.getSelectedRow();
+//        jtID.setText(jtUsuarios.getModel().getValueAt(setar,0).toString());
+//        int setar = jtRequisitos.getSelectedRow();
+
+        String atributo = jcAtributo.getSelectedItem().toString();
+        try{String sqlSelect = "select * from requisitos where "+atributo+" = ?";
+        Conexao conexao = new Conexao();
+        
+            FuncRequisitos requisitos = new FuncRequisitos();
+
+
+            System.out.println(atributo);
+            System.out.println(jtPesquisa.getText());
+           
+            Connection conn = conexao.conectabd();
+            PreparedStatement stm = conn.prepareStatement(sqlSelect);
+//            stm.setString(1, atributo);
+//            stm.setString(1, '%'+jtPesquisa.getText()+'%');
+            stm.setString(1,jtPesquisa.getText());
+            System.out.println(stm.toString());
+            ResultSet rs = stm.executeQuery();
+//            java.sql.Date sqldate = new java.sql.Date(jdDatacriacao.getDate().getTime());
+//            java.sql.Date sqldate1 = new java.sql.Date(jdDataAlteracao.getDate().getTime());
+            DefaultTableModel modelo = (DefaultTableModel) jtUsuarios.getModel();
+            modelo.setNumRows(0);
+//            DefaultTableModel modelo1 = (DefaultTableModel) jtRequisitos.getModel();
+//            modelo1.setNumRows(0);
+            while(rs.next()){
+
+//                jtNome.setText(rs.getString("nome"));
+//                jtID.setText(rs.getString("id"));
+//                jtEmail.setText(rs.getString("email"));
+//                jtTel.setText(rs.getString("fone"));
+//                jtUsuario.setText(rs.getString("login"));
+//                jtSenha.setText(rs.getString("senha"));
+//                jtMaster.setText(rs.getString("master"));
+                modelo.addRow(new Object[]{rs.getInt("ididentificador"),rs.getString("nome"),rs.getString("nomeprojeto"),rs.getString("usuarioprop"),rs.getString("modulo"),rs.getString("funcionalidade"),rs.getDate("datacriacao"),rs.getString("autor"),
+                rs.getDate("dataultimaalter"),rs.getString("autorultimaalter"),rs.getInt("versao"),rs.getString("prioridade"),rs.getString("complexidade"),rs.getString("esforcohoras"),rs.getString("estado"),
+                rs.getString("fase"),rs.getString("descricao") });
+
+
+
+            }
+            rs.close();
+            conn.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void carregarLista(){
+//        int setar = jtUsuarios.getSelectedRow();
+//        jtID.setText(jtUsuarios.getModel().getValueAt(setar,0).toString());
+//        int setar = jtRequisitos.getSelectedRow();
+
+
+        try{String sqlSelect = "select * from requisitos";
+        Conexao conexao = new Conexao();
+        
+//        FuncRequisitos requisitos = new FuncRequisitos();
+
+      
+                
+            Connection conn = conexao.conectabd();
+            PreparedStatement stm = conn.prepareStatement(sqlSelect);
+//            stm.setString(1, jtUsuarios.getModel().getValueAt(setar,0).toString());
+            ResultSet rs = stm.executeQuery();
+//            java.sql.Date sqldate = new java.sql.Date(jdDatacriacao.getDate().getTime());
+//            java.sql.Date sqldate1 = new java.sql.Date(jdDataAlteracao.getDate().getTime());
+            DefaultTableModel modelo = (DefaultTableModel) jtUsuarios.getModel();
+            modelo.setNumRows(0);
+//            DefaultTableModel modelo1 = (DefaultTableModel) jtRequisitos.getModel();
+//            modelo1.setNumRows(0);
+            while(rs.next()){
+
+//                jtNome.setText(rs.getString("nome"));
+//                jtID.setText(rs.getString("id"));
+//                jtEmail.setText(rs.getString("email"));
+//                jtTel.setText(rs.getString("fone"));
+//                jtUsuario.setText(rs.getString("login"));
+//                jtSenha.setText(rs.getString("senha"));
+//                jtMaster.setText(rs.getString("master"));
+                modelo.addRow(new Object[]{rs.getInt("ididentificador"),rs.getString("nome"),rs.getString("nomeprojeto"),rs.getString("usuarioprop"),rs.getString("modulo"),rs.getString("funcionalidade"),rs.getDate("datacriacao"),rs.getString("autor"),
+                rs.getDate("dataultimaalter"),rs.getString("autorultimaalter"),rs.getInt("versao"),rs.getString("prioridade"),rs.getString("complexidade"),rs.getString("esforcohoras"),rs.getString("estado"),
+                rs.getString("fase"),rs.getString("descricao") });
+
+
+            }
+            rs.close();
+            conn.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
+
