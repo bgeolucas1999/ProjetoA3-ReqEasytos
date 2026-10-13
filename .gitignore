@@ -1,0 +1,14 @@
+# Saída de compilação (Maven / NetBeans)
+target/
+build/
+*.class
+
+# IDE
+nbproject/private/
+.idea/
+.vscode/
+*.iml
+
+# Sistema
+.DS_Store
+Thumbs.db
